@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard - Grading System</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- =====================================
+     SIDEBAR
+     ===================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-logo">
+
+        <div class="sidebar-logo-icon">
+            🎓
+        </div>
+
+        <div>
+            <strong>Grading System</strong>
+            <span>Academic Portal</span>
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <a href="index.html" class="active">
+            <span>▣</span>
+            Dashboard
+        </a>
+
+        <a href="students.html">
+            <span>👨‍🎓</span>
+            Students
+        </a>
+
+        <a href="subjects.html">
+            <span>📚</span>
+            Subjects
+        </a>
+
+        <a href="marks.html">
+            <span>📝</span>
+            Marks
+        </a>
+
+        <a href="results.html">
+            <span>📊</span>
+            Results
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="logout-button"
+            onclick="logout()"
+        >
+            <span>↪</span>
+            Logout
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================
+     MAIN CONTENT
+     ===================================== -->
+
+<div class="main-content">
+
+
+    <!-- TOP HEADER -->
+
+    <header class="top-header">
+
+        <div>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <p>
+                Academic performance overview
+            </p>
+
+        </div>
+
+
+        <div class="user-profile">
+
+            <div class="user-avatar">
+                A
+            </div>
+
+            <div>
+
+                <strong id="loggedUsername">
+                    Admin
+                </strong>
+
+                <span>
+                    Administrator
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================
+         WELCOME BANNER
+         ===================================== -->
+
+    <section class="welcome-banner">
+
+        <div>
+
+            <p class="welcome-small">
+                Welcome back 👋
+            </p>
+
+            <h2>
+                Academic Management Dashboard
+            </h2>
+
+            <p>
+                Monitor students, marks and academic
+                performance from one place.
+            </p>
+
+        </div>
+
+        <div class="welcome-icon">
+            🎓
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+         STATISTICS
+         ===================================== -->
+
+    <section class="statistics-grid">
+
+
+        <!-- TOTAL STUDENTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                👨‍🎓
+            </div>
+
+            <div>
+
+                <p>
+                    Total Students
+                </p>
+
+                <h2 id="totalStudents">
+                    0
+                </h2>
+
+                <a href="students.html">
+                    View Students →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL SUBJECTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📚
+            </div>
+
+            <div>
+
+                <p>
+                    Total Subjects
+                </p>
+
+                <h2 id="totalSubjects">
+                    0
+                </h2>
+
+                <a href="subjects.html">
+                    View Subjects →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- MARKS RECORDS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📝
+            </div>
+
+            <div>
+
+                <p>
+                    Marks Records
+                </p>
+
+                <h2 id="totalMarks">
+                    0
+                </h2>
+
+                <a href="marks.html">
+                    Manage Marks →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- PASSED STUDENTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <p>
+                    Passed Students
+                </p>
+
+                <h2 id="passedStudents">
+                    0
+                </h2>
+
+                <a href="results.html">
+                    View Results →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- FAILED STUDENTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                !
+            </div>
+
+            <div>
+
+                <p>
+                    Failed Students
+                </p>
+
+                <h2 id="failedStudents">
+                    0
+                </h2>
+
+                <a href="results.html">
+                    View Results →
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =====================================
+         QUICK ACTIONS
+         ===================================== -->
+
+    <section class="section-block">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+                <p>
+                    Frequently used management tools
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+
+            <!-- ADD STUDENT -->
+
+            <a
+                href="students.html"
+                class="action-card"
+            >
+
+                <span>
+                    👨‍🎓
+                </span>
+
+                <div>
+
+                    <strong>
+                        Add Student
+                    </strong>
+
+                    <small>
+                        Register a new student
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <!-- MANAGE SUBJECTS -->
+
+            <a
+                href="subjects.html"
+                class="action-card"
+            >
+
+                <span>
+                    📚
+                </span>
+
+                <div>
+
+                    <strong>
+                        View Subjects
+                    </strong>
+
+                    <small>
+                        View academic subjects
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <!-- ENTER MARKS -->
+
+            <a
+                href="marks.html"
+                class="action-card"
+            >
+
+                <span>
+                    📝
+                </span>
+
+                <div>
+
+                    <strong>
+                        Enter Marks
+                    </strong>
+
+                    <small>
+                        Add student marks
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <!-- VIEW RESULTS -->
+
+            <a
+                href="results.html"
+                class="action-card"
+            >
+
+                <span>
+                    📊
+                </span>
+
+                <div>
+
+                    <strong>
+                        View Results
+                    </strong>
+
+                    <small>
+                        Check academic results
+                    </small>
+
+                </div>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+         RESULT ANALYTICS
+         ===================================== -->
+
+    <section class="section-block">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Result Analytics
+                </h2>
+
+                <p>
+                    Overall academic performance
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="analytics-grid">
+
+
+            <!-- PASS PERCENTAGE -->
+
+            <div class="analytics-card">
+
+                <div class="analytics-top">
+
+                    <span>
+                        Pass Percentage
+                    </span>
+
+                    <span>
+                        %
+                    </span>
+
+                </div>
+
+                <h2 id="passPercentage">
+                    0%
+                </h2>
+
+            </div>
+
+
+            <!-- A+ -->
+
+            <div class="analytics-card">
+
+                <div class="analytics-top">
+
+                    <span>
+                        A+ Grades
+                    </span>
+
+                    <span>
+                        10
+                    </span>
+
+                </div>
+
+                <h2 id="aPlusCount">
+                    0
+                </h2>
+
+            </div>
+
+
+            <!-- A -->
+
+            <div class="analytics-card">
+
+                <div class="analytics-top">
+
+                    <span>
+                        A Grades
+                    </span>
+
+                    <span>
+                        9
+                    </span>
+
+                </div>
+
+                <h2 id="aCount">
+                    0
+                </h2>
+
+            </div>
+
+
+            <!-- B+ -->
+
+            <div class="analytics-card">
+
+                <div class="analytics-top">
+
+                    <span>
+                        B+ Grades
+                    </span>
+
+                    <span>
+                        8
+                    </span>
+
+                </div>
+
+                <h2 id="bPlusCount">
+                    0
+                </h2>
+
+            </div>
+
+
+            <!-- B -->
+
+            <div class="analytics-card">
+
+                <div class="analytics-top">
+
+                    <span>
+                        B Grades
+                    </span>
+
+                    <span>
+                        7
+                    </span>
+
+                </div>
+
+                <h2 id="bCount">
+                    0
+                </h2>
+
+            </div>
+
+
+            <!-- C -->
+
+            <div class="analytics-card">
+
+                <div class="analytics-top">
+
+                    <span>
+                        C Grades
+                    </span>
+
+                    <span>
+                        6
+                    </span>
+
+                </div>
+
+                <h2 id="cCount">
+                    0
+                </h2>
+
+            </div>
+
+
+            <!-- D -->
+
+            <div class="analytics-card">
+
+                <div class="analytics-top">
+
+                    <span>
+                        D Grades
+                    </span>
+
+                    <span>
+                        5
+                    </span>
+
+                </div>
+
+                <h2 id="dCount">
+                    0
+                </h2>
+
+            </div>
+
+
+            <!-- F -->
+
+            <div class="analytics-card">
+
+                <div class="analytics-top">
+
+                    <span>
+                        F Grades
+                    </span>
+
+                    <span>
+                        0
+                    </span>
+
+                </div>
+
+                <h2 id="fCount">
+                    0
+                </h2>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+         ACADEMIC OVERVIEW
+         ===================================== -->
+
+    <section class="section-block">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Academic Overview
+                </h2>
+
+                <p>
+                    Students by department, year and semester
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Department
+                        </th>
+
+                        <th>
+                            Year
+                        </th>
+
+                        <th>
+                            Semester
+                        </th>
+
+                        <th>
+                            Students
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="academicTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<!-- =====================================
+     JAVASCRIPT
+     ===================================== -->
+
+<script src="auth.js"></script>
+
+<script src="dashboard.js"></script>
+
+
+<script>
+
+    // Display logged-in username
+
+    const user =
+        localStorage.getItem(
+            "loggedInUser"
+        );
+
+
+    if (user) {
+
+        const userData =
+            JSON.parse(user);
+
+
+        document.getElementById(
+            "loggedUsername"
+        ).textContent =
+            userData.username;
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

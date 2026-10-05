@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Results - Grading System</title>
+
+<link rel="stylesheet" href="style.css">
+```
+
+</head>
+
+<body>
+
+<!-- =====================================
+     SIDEBAR
+     ===================================== -->
+
+<aside class="sidebar">
+
+```
+<div class="sidebar-logo">
+
+    <div class="sidebar-logo-icon">
+        🎓
+    </div>
+
+    <div>
+        <strong>Grading System</strong>
+        <span>Academic Portal</span>
+    </div>
+
+</div>
+
+
+<nav class="sidebar-nav">
+
+    <a href="index.html">
+        <span>▣</span>
+        Dashboard
+    </a>
+
+    <a href="students.html">
+        <span>👨‍🎓</span>
+        Students
+    </a>
+
+    <a href="subjects.html">
+        <span>📚</span>
+        Subjects
+    </a>
+
+    <a href="marks.html">
+        <span>📝</span>
+        Marks
+    </a>
+
+    <a href="results.html" class="active">
+        <span>📊</span>
+        Results
+    </a>
+
+</nav>
+
+
+<div class="sidebar-bottom">
+
+    <button
+        class="logout-button"
+        onclick="logout()"
+    >
+        <span>↪</span>
+        Logout
+    </button>
+
+</div>
+```
+
+</aside>
+
+<!-- =====================================
+     MAIN CONTENT
+     ===================================== -->
+
+<div class="main-content">
+
+```
+<!-- TOP HEADER -->
+
+<header class="top-header">
+
+    <div>
+
+        <h1>
+            Student Results
+        </h1>
+
+        <p>
+            View academic performance and marksheets
+        </p>
+
+    </div>
+
+
+    <div class="user-profile">
+
+        <div class="user-avatar">
+            A
+        </div>
+
+        <div>
+
+            <strong id="loggedUsername">
+                Admin
+            </strong>
+
+            <span>
+                Administrator
+            </span>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================
+     SELECT STUDENT
+     ===================================== -->
+
+<section class="section-block">
+
+
+    <div class="section-heading">
+
+        <div>
+
+            <h2>
+                Find Student Result
+            </h2>
+
+            <p>
+                Select department, year and semester
+                to find a student
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="dashboard-card">
+
+
+        <!-- DEPARTMENT -->
+
+        <label>
+            Department
+        </label>
+
+        <select id="resultDepartment">
+
+            <option value="">
+                Select Department
+            </option>
+
+            <option value="CSE">
+                CSE
+            </option>
+
+            <option value="ECE">
+                ECE
+            </option>
+
+            <option value="EEE">
+                EEE
+            </option>
+
+            <option value="AIML">
+                AIML
+            </option>
+
+            <option value="CIVIL">
+                CIVIL
+            </option>
+
+            <option value="MECH">
+                MECH
+            </option>
+
+        </select>
+
+
+
+        <!-- YEAR -->
+
+        <label>
+            Year
+        </label>
+
+        <select id="resultYear">
+
+            <option value="">
+                Select Year
+            </option>
+
+            <option value="1">
+                1st Year
+            </option>
+
+            <option value="2">
+                2nd Year
+            </option>
+
+            <option value="3">
+                3rd Year
+            </option>
+
+            <option value="4">
+                4th Year
+            </option>
+
+        </select>
+
+
+
+        <!-- SEMESTER -->
+
+        <label>
+            Semester
+        </label>
+
+        <select id="resultSemester">
+
+            <option value="">
+                Select Semester
+            </option>
+
+            <option value="1">
+                Semester 1
+            </option>
+
+            <option value="2">
+                Semester 2
+            </option>
+
+            <option value="3">
+                Semester 3
+            </option>
+
+            <option value="4">
+                Semester 4
+            </option>
+
+            <option value="5">
+                Semester 5
+            </option>
+
+            <option value="6">
+                Semester 6
+            </option>
+
+            <option value="7">
+                Semester 7
+            </option>
+
+            <option value="8">
+                Semester 8
+            </option>
+
+        </select>
+
+
+
+        <!-- STUDENT -->
+
+        <label>
+            Student
+        </label>
+
+        <select id="resultStudent">
+
+            <option value="">
+                Select Student
+            </option>
+
+        </select>
+
+
+
+        <!-- VIEW RESULT -->
+
+        <button id="viewResult">
+            View Result
+        </button>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     RESULT DISPLAY
+     ===================================== -->
+
+<section class="section-block">
+
+
+    <div class="section-heading">
+
+        <div>
+
+            <h2>
+                Academic Result
+            </h2>
+
+            <p>
+                Student marks, grades and performance summary
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <div
+        class="dashboard-card"
+        id="resultContainer"
+    >
+
+        <div class="empty-state">
+
+            <div
+                style="
+                    font-size: 42px;
+                    margin-bottom: 15px;
+                "
+            >
+                📊
+            </div>
+
+            <h3>
+                No Result Selected
+            </h3>
+
+            <p>
+                Select a department, year,
+                semester and student above
+                to view the academic result.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+```
+
+</div>
+
+<!-- =====================================
+     JAVASCRIPT
+     ===================================== -->
+
+<script src="auth.js"></script>
+
+<script src="results.js"></script>
+
+<script>
+
+    // Display logged-in username
+
+    const user =
+        localStorage.getItem(
+            "loggedInUser"
+        );
+
+
+    if (user) {
+
+        const userData =
+            JSON.parse(user);
+
+
+        const username =
+            document.getElementById(
+                "loggedUsername"
+            );
+
+
+        if (username) {
+
+            username.textContent =
+                userData.username;
+
+        }
+
+    }
+
+</script>
+
+</body>
+
+</html>

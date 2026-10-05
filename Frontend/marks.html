@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Marks Management - Grading System</title>
+
+<link rel="stylesheet" href="style.css">
+```
+
+</head>
+
+<body>
+
+<!-- =====================================
+     SIDEBAR
+     ===================================== -->
+
+<aside class="sidebar">
+
+```
+<div class="sidebar-logo">
+
+    <div class="sidebar-logo-icon">
+        🎓
+    </div>
+
+    <div>
+        <strong>Grading System</strong>
+        <span>Academic Portal</span>
+    </div>
+
+</div>
+
+
+<nav class="sidebar-nav">
+
+    <a href="index.html">
+        <span>▣</span>
+        Dashboard
+    </a>
+
+    <a href="students.html">
+        <span>👨‍🎓</span>
+        Students
+    </a>
+
+    <a href="subjects.html">
+        <span>📚</span>
+        Subjects
+    </a>
+
+    <a href="marks.html" class="active">
+        <span>📝</span>
+        Marks
+    </a>
+
+    <a href="results.html">
+        <span>📊</span>
+        Results
+    </a>
+
+</nav>
+
+
+<div class="sidebar-bottom">
+
+    <button
+        class="logout-button"
+        onclick="logout()"
+    >
+        <span>↪</span>
+        Logout
+    </button>
+
+</div>
+```
+
+</aside>
+
+<!-- =====================================
+     MAIN CONTENT
+     ===================================== -->
+
+<div class="main-content">
+
+```
+<!-- TOP HEADER -->
+
+<header class="top-header">
+
+    <div>
+
+        <h1>
+            Marks Management
+        </h1>
+
+        <p>
+            Enter, update and manage student marks
+        </p>
+
+    </div>
+
+
+    <div class="user-profile">
+
+        <div class="user-avatar">
+            A
+        </div>
+
+        <div>
+
+            <strong id="loggedUsername">
+                Admin
+            </strong>
+
+            <span>
+                Administrator
+            </span>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================
+     ENTER MARKS
+     ===================================== -->
+
+<section class="section-block">
+
+    <div class="section-heading">
+
+        <div>
+
+            <h2>
+                Enter Student Marks
+            </h2>
+
+            <p>
+                Select the academic details and enter marks
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <form id="marksForm">
+
+
+            <!-- DEPARTMENT -->
+
+            <label>
+                Department
+            </label>
+
+            <select id="marksDepartment">
+
+                <option value="">
+                    Select Department
+                </option>
+
+                <option value="CSE">CSE</option>
+
+                <option value="ECE">ECE</option>
+
+                <option value="EEE">EEE</option>
+
+                <option value="MECH">MECH</option>
+
+                <option value="CIVIL">CIVIL</option>
+
+                <option value="AIML">AIML</option>
+
+            </select>
+
+
+            <!-- YEAR -->
+
+            <label>
+                Year
+            </label>
+
+            <select id="marksYear">
+
+                <option value="">
+                    Select Year
+                </option>
+
+                <option value="1">
+                    1st Year
+                </option>
+
+                <option value="2">
+                    2nd Year
+                </option>
+
+                <option value="3">
+                    3rd Year
+                </option>
+
+                <option value="4">
+                    4th Year
+                </option>
+
+            </select>
+
+
+            <!-- SEMESTER -->
+
+            <label>
+                Semester
+            </label>
+
+            <select id="marksSemester">
+
+                <option value="">
+                    Select Semester
+                </option>
+
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+                <option value="7">Semester 7</option>
+                <option value="8">Semester 8</option>
+
+            </select>
+
+
+            <!-- STUDENT -->
+
+            <label>
+                Student
+            </label>
+
+            <select id="student_id">
+
+                <option value="">
+                    Select Student
+                </option>
+
+            </select>
+
+
+            <!-- SUBJECT -->
+
+            <label>
+                Subject
+            </label>
+
+            <select id="subject_id">
+
+                <option value="">
+                    Select Subject
+                </option>
+
+            </select>
+
+
+            <!-- MARKS -->
+
+            <label>
+                Marks
+            </label>
+
+            <input
+                type="number"
+                id="marks"
+                min="0"
+                max="100"
+                placeholder="Enter marks (0 - 100)"
+            >
+
+
+            <!-- SAVE -->
+
+            <button
+                type="button"
+                id="saveMarksBtn"
+            >
+                Save Marks
+            </button>
+
+
+            <p id="marksMessage"></p>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     GRADE SCALE
+     ===================================== -->
+
+<section class="section-block">
+
+    <div class="section-heading">
+
+        <div>
+
+            <h2>
+                Grade Scale
+            </h2>
+
+            <p>
+                Marks and corresponding grade points
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Marks
+                    </th>
+
+                    <th>
+                        Grade
+                    </th>
+
+                    <th>
+                        Grade Point
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+                    <td>90 - 100</td>
+                    <td>A+</td>
+                    <td>10</td>
+                </tr>
+
+                <tr>
+                    <td>80 - 89</td>
+                    <td>A</td>
+                    <td>9</td>
+                </tr>
+
+                <tr>
+                    <td>70 - 79</td>
+                    <td>B+</td>
+                    <td>8</td>
+                </tr>
+
+                <tr>
+                    <td>60 - 69</td>
+                    <td>B</td>
+                    <td>7</td>
+                </tr>
+
+                <tr>
+                    <td>50 - 59</td>
+                    <td>C</td>
+                    <td>6</td>
+                </tr>
+
+                <tr>
+                    <td>40 - 49</td>
+                    <td>D</td>
+                    <td>5</td>
+                </tr>
+
+                <tr>
+                    <td>Below 40</td>
+                    <td>F</td>
+                    <td>0</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     EXISTING MARKS
+     ===================================== -->
+
+<section class="section-block">
+
+    <div class="section-heading">
+
+        <div>
+
+            <h2>
+                Existing Marks
+            </h2>
+
+            <p>
+                View and manage entered student marks
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="table-container">
+
+        <table id="marksTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        ID
+                    </th>
+
+                    <th>
+                        Roll No
+                    </th>
+
+                    <th>
+                        Student
+                    </th>
+
+                    <th>
+                        Subject
+                    </th>
+
+                    <th>
+                        Marks
+                    </th>
+
+                    <th>
+                        Grade
+                    </th>
+
+                    <th>
+                        Grade Point
+                    </th>
+
+                    <th>
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="marksTableBody">
+
+                <tr>
+
+                    <td colspan="8">
+                        Loading marks...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+```
+
+</div>
+
+<!-- =====================================
+     JAVASCRIPT
+     ===================================== -->
+
+<script src="auth.js"></script>
+
+<script src="marks.js"></script>
+
+<script>
+
+    // Display logged-in username
+
+    const user =
+        localStorage.getItem(
+            "loggedInUser"
+        );
+
+
+    if (user) {
+
+        const userData =
+            JSON.parse(user);
+
+
+        const username =
+            document.getElementById(
+                "loggedUsername"
+            );
+
+
+        if (username) {
+
+            username.textContent =
+                userData.username;
+
+        }
+
+    }
+
+</script>
+
+</body>
+
+</html>
