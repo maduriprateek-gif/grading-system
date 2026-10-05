@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
 const db = require("./db");
@@ -76,7 +77,6 @@ app.post("/api/login", (req, res) => {
         password
     } = req.body;
 
-
     if (!username || !password) {
 
         return res.status(400).json({
@@ -90,26 +90,24 @@ app.post("/api/login", (req, res) => {
 
     }
 
-
     const sql = `
 
         SELECT
             user_id,
             username,
+            password,
             role
 
         FROM users
 
         WHERE username = ?
-        AND password = ?
 
     `;
 
-
     db.query(
         sql,
-        [username, password],
-        (err, results) => {
+        [username],
+        async (err, results) => {
 
             if (err) {
 
@@ -126,7 +124,6 @@ app.post("/api/login", (req, res) => {
 
             }
 
-
             if (results.length === 0) {
 
                 return res.status(401).json({
@@ -140,31 +137,65 @@ app.post("/api/login", (req, res) => {
 
             }
 
-
             const user = results[0];
 
+            try {
 
-            res.json({
+                const passwordMatch =
+                    await bcrypt.compare(
+                        password,
+                        user.password
+                    );
 
-                success: true,
+                if (!passwordMatch) {
 
-                message:
-                    "Login successful",
+                    return res.status(401).json({
 
-                user: {
+                        success: false,
 
-                    user_id:
-                        user.user_id,
+                        message:
+                            "Invalid username or password"
 
-                    username:
-                        user.username,
-
-                    role:
-                        user.role
+                    });
 
                 }
 
-            });
+                res.json({
+
+                    success: true,
+
+                    message:
+                        "Login successful",
+
+                    user: {
+
+                        user_id:
+                            user.user_id,
+
+                        username:
+                            user.username,
+
+                        role:
+                            user.role
+
+                    }
+
+                });
+
+            } catch (error) {
+
+                console.error(error);
+
+                res.status(500).json({
+
+                    success: false,
+
+                    message:
+                        "Login failed"
+
+                });
+
+            }
 
         }
 
@@ -172,6 +203,438 @@ app.post("/api/login", (req, res) => {
 
 });
 
+// =====================================
+// FORGOT PASSWORD
+// =====================================
+
+app.post("/api/forgot-password", (req, res) => {
+
+    const { username } = req.body;
+
+    if (!username) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Username is required"
+
+        });
+
+    }
+
+    const sql = `
+        SELECT
+            user_id,
+            username
+        FROM users
+        WHERE username = ?
+    `;
+
+    db.query(
+        sql,
+        [username],
+        (err, results) => {
+
+            if (err) {
+
+                console.error(
+                    "Forgot password error:",
+                    err
+                );
+
+                return res.status(500).json({
+
+                    success: false,
+
+                    message:
+                        "Unable to process request"
+
+                });
+
+            }
+
+            if (results.length === 0) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Username not found"
+
+                });
+
+            }
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "Username verified. You can now reset your password."
+
+            });
+
+        }
+    );
+
+});
+
+// =====================================
+// RESET PASSWORD
+// =====================================
+
+app.post("/api/reset-password", async (req, res) => {
+
+    const {
+        username,
+        newPassword
+    } = req.body;
+
+
+    if (!username || !newPassword) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Username and new password are required"
+
+        });
+
+    }
+
+
+    if (newPassword.length < 6) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Password must be at least 6 characters"
+
+        });
+
+    }
+
+
+    try {
+
+        const hashedPassword =
+            await bcrypt.hash(
+                newPassword,
+                10
+            );
+
+
+        const sql = `
+
+            UPDATE users
+
+            SET password = ?
+
+            WHERE username = ?
+
+        `;
+
+
+        db.query(
+            sql,
+            [
+                hashedPassword,
+                username
+            ],
+            (err, result) => {
+
+                if (err) {
+
+                    console.error(
+                        "Reset password error:",
+                        err
+                    );
+
+                    return res.status(500).json({
+
+                        success: false,
+
+                        message:
+                            "Failed to reset password"
+
+                    });
+
+                }
+
+
+                if (
+                    result.affectedRows === 0
+                ) {
+
+                    return res.status(404).json({
+
+                        success: false,
+
+                        message:
+                            "Username not found"
+
+                    });
+
+                }
+
+
+                res.json({
+
+                    success: true,
+
+                    message:
+                        "Password reset successfully. Please login with your new password."
+
+                });
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Failed to reset password"
+
+        });
+
+    }
+
+});
+
+// =====================================
+// CHANGE PASSWORD
+// =====================================
+
+app.put("/api/change-password", async (req, res) => {
+
+    const {
+        username,
+        currentPassword,
+        newPassword
+    } = req.body;
+
+
+    if (
+        !username ||
+        !currentPassword ||
+        !newPassword
+    ) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Current password and new password are required"
+
+        });
+
+    }
+
+
+    if (newPassword.length < 6) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "New password must be at least 6 characters"
+
+        });
+
+    }
+
+
+    try {
+
+        // Get current password
+
+        const selectSQL = `
+
+            SELECT
+                user_id,
+                password
+
+            FROM users
+
+            WHERE username = ?
+
+        `;
+
+
+        db.query(
+            selectSQL,
+            [username],
+            async (err, results) => {
+
+                if (err) {
+
+                    console.error(err);
+
+                    return res.status(500).json({
+
+                        success: false,
+
+                        message:
+                            "Failed to verify account"
+
+                    });
+
+                }
+
+
+                if (results.length === 0) {
+
+                    return res.status(404).json({
+
+                        success: false,
+
+                        message:
+                            "User not found"
+
+                    });
+
+                }
+
+
+                const user =
+                    results[0];
+
+
+                // Verify current password
+
+                const passwordMatch =
+                    await bcrypt.compare(
+                        currentPassword,
+                        user.password
+                    );
+
+
+                if (!passwordMatch) {
+
+                    return res.status(401).json({
+
+                        success: false,
+
+                        message:
+                            "Current password is incorrect"
+
+                    });
+
+                }
+
+
+                // Hash new password
+
+                const hashedPassword =
+                    await bcrypt.hash(
+                        newPassword,
+                        10
+                    );
+
+
+                // Update password
+
+                const updateSQL = `
+
+                    UPDATE users
+
+                    SET password = ?
+
+                    WHERE user_id = ?
+
+                `;
+
+
+                db.query(
+                    updateSQL,
+                    [
+                        hashedPassword,
+                        user.user_id
+                    ],
+                    (updateErr, result) => {
+
+                        if (updateErr) {
+
+                            console.error(
+                                updateErr
+                            );
+
+                            return res.status(500).json({
+
+                                success: false,
+
+                                message:
+                                    "Failed to update password"
+
+                            });
+
+                        }
+
+
+                        if (
+                            result.affectedRows === 0
+                        ) {
+
+                            return res.status(404).json({
+
+                                success: false,
+
+                                message:
+                                    "Password could not be changed"
+
+                            });
+
+                        }
+
+
+                        res.json({
+
+                            success: true,
+
+                            message:
+                                "Password changed successfully"
+
+                        });
+
+                    }
+                );
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Failed to change password"
+
+        });
+
+    }
+
+});
 
 // ==========================================
 // GET STUDENTS
