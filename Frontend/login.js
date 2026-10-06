@@ -1,5 +1,5 @@
 const API_URL =
-    "http://localhost:5000/api";
+    "https://grading-system-production.up.railway.app/api";
 
 
 const loginForm =

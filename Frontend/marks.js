@@ -31,7 +31,7 @@ async function loadStudents() {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/students?` +
+            `https://grading-system-production.up.railway.app/api/students?` +
             `department=${encodeURIComponent(department)}` +
             `&year=${encodeURIComponent(year)}` +
             `&semester=${encodeURIComponent(semester)}`
@@ -115,7 +115,7 @@ async function loadSubjects() {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/v1/rent/subjects?` +
+            `https://grading-system-production.up.railway.app/api/v1/rent/subjects?` +
             `department=${encodeURIComponent(department)}` +
             `&year=${encodeURIComponent(year)}` +
             `&semester=${encodeURIComponent(semester)}`
@@ -248,7 +248,7 @@ saveMarksBtn.addEventListener("click", async () => {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/marks",
+            "https://grading-system-production.up.railway.app/api/marks",
             {
                 method: "POST",
 
@@ -326,7 +326,7 @@ async function loadMarks() {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/marks"
+            "https://grading-system-production.up.railway.app/api/marks"
         );
 
         const data = await response.json();
@@ -476,7 +476,7 @@ async function editMarks(markId, currentMarks) {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/marks/${markId}`,
+            `https://grading-system-production.up.railway.app/api/marks/${markId}`,
             {
                 method: "PUT",
 
@@ -546,7 +546,7 @@ async function deleteMarks(markId) {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/marks/${markId}`,
+            `https://grading-system-production.up.railway.app/api/marks/${markId}`,
             {
                 method: "DELETE"
             }
@@ -624,7 +624,7 @@ async function loadMarks() {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/marks"
+            "https://grading-system-production.up.railway.app/api/marks"
         );
 
         const data = await response.json();
@@ -752,7 +752,7 @@ async function editMark(markId, currentMarks) {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/marks/${markId}`,
+            `https://grading-system-production.up.railway.app/api/marks/${markId}`,
             {
                 method: "PUT",
 
@@ -814,7 +814,7 @@ async function deleteMark(markId) {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/marks/${markId}`,
+            `https://grading-system-production.up.railway.app/api/marks/${markId}`,
             {
                 method: "DELETE"
             }
@@ -919,7 +919,7 @@ async function editMark(markId, currentMarks) {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/marks/${markId}`,
+            `https://grading-system-production.up.railway.app/api/marks/${markId}`,
             {
                 method: "PUT",
 
@@ -987,7 +987,7 @@ async function deleteMark(markId) {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/marks/${markId}`,
+            `https://grading-system-production.up.railway.app/api/marks/${markId}`,
             {
                 method: "DELETE"
             }

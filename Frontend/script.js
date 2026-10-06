@@ -1,4 +1,4 @@
-const API_URL = "/api";
+const API_URL = "https://grading-system-production.up.railway.app/api";
 
 const form = document.getElementById("studentForm");
 const message = document.getElementById("message");

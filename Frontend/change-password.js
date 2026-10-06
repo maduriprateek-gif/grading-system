@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://grading-system-production.up.railway.app/api";
 
 const changePasswordForm =
     document.getElementById("changePasswordForm");
